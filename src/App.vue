@@ -1,26 +1,34 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <!--<Login v-if="!loggedIn"/>-->
+    <Layout/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+    //import Login from "./components/Login.vue";
+    import Layout from "./components/Layout.vue";
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+    export default {
+        name: "App",
+        components: {
+            // Login,
+            Layout,
+        },
+        computed: {
+            loggedIn() {
+                return this.$store.state.auth.status.loggedIn;
+            },
+            user() {
+                return this.$store.state.auth.user
+            },
+        },
+        mounted() {
+            if (!this.user) {
+                this.$router.push({name: "login"})
+            }
+        }
+
+    };
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
