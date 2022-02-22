@@ -1,11 +1,12 @@
 import axiosInstance from "./api";
 import TokenService from "./token.service";
 
-const setup = (store,router) => {
+const setup = (store, router) => {
     axiosInstance.interceptors.request.use(
         (config) => {
             const token = TokenService.getLocalAccessToken();
             if (token) {
+                config.headers["Content-Type"] = "application/json";
                 config.headers["Authorization"] = "Bearer " + token;  // for Spring Boot back-end
                 //config.headers["x-access-token"] = token; // for Node.js Express back-end
             }
@@ -25,7 +26,7 @@ const setup = (store,router) => {
                 if (originalConfig.url === "api/user/refreshToken" && err.response.status === 401) {
                     store.dispatch("auth/logout").then(
                         () => {
-                            router.push({name:"login"})
+                            router.push({name: "login"})
                             //this.$router.push("/profile");
                             console.log("Automatic Logged out successfully");
                         });

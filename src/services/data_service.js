@@ -7,10 +7,6 @@ class DataService {
         const user = TokenService.getUser()
         return api.get("api/user/lastMoveOfFollowersOfLeader", {
                 params: {username: user.username},
-                headers: {
-                    "Content-Type": "application/json",
-                }
-                //headers: {"Authorization": "Bearer " + access_token},
             }
         ).then(
             response => {
@@ -35,10 +31,6 @@ class DataService {
         const user = TokenService.getUser()
         return api.get("api/user/lastMoveOfUser", {
                 params: {username: user.username},
-                headers: {
-                    "Content-Type": "application/json",
-                }
-                //headers: {"Authorization": "Bearer " + access_token},
             }
         ).then(
             response => {
@@ -60,12 +52,7 @@ class DataService {
     }
 
     getLeaders() {
-        return api.get("api/user/leaders", {
-                headers: {
-                    "Content-Type": "application/json",
-                }
-                //headers: {"Authorization": "Bearer " + access_token},
-            }
+        return api.get("api/user/leaders"
         ).then(
             response => {
                 return response.data;
@@ -89,12 +76,7 @@ class DataService {
             },
             "user": user
         }
-        return api.post("api/user/userMovement", data, {
-                headers: {
-                    "Content-Type": "application/json",
-                }
-                //headers: {"Authorization": "Bearer " + access_token},
-            },
+        return api.post("api/user/userMovement", data
         ).then(
             response => {
                 return response.data;
@@ -128,12 +110,7 @@ class DataService {
             ]
         }
         //console.log(JSON.stringify(data))
-        return api.post("api/user/user", data, {
-                headers: {
-                    "Content-Type": "application/json",
-                }
-                //headers: {"Authorization": "Bearer " + access_token},
-            },
+        return api.post("api/user/user", data
         ).then(
             response => {
                 return response.data;

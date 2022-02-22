@@ -3,7 +3,7 @@ import TokenService from './token.service';
 
 
 class AuthService {
-    login(user) {
+    /*login(user) {
         const formData = new FormData();
         formData.append("username", user.username);
         formData.append("password", user.password);
@@ -13,6 +13,20 @@ class AuthService {
             data: formData,
             headers: {"Content-Type": "application/x-www-form-urlencoded"},
         })
+            .then(response => {
+                //console.log("access_token : "+JSON.stringify(response.data.access_token))
+                //console.log("refresh_token : "+JSON.stringify(response.data.refresh_token))
+                //console.log("user : "+JSON.stringify(response.data.user))
+                TokenService.setUser(response.data);
+
+
+                return response.data;
+            });
+    }*/
+    login(user) {
+
+        return api.post("login", {"username": user.username, "password": user.password}
+        )
             .then(response => {
                 //console.log("access_token : "+JSON.stringify(response.data.access_token))
                 //console.log("refresh_token : "+JSON.stringify(response.data.refresh_token))
@@ -55,12 +69,7 @@ class AuthService {
             "password": password
         }
         console.log(JSON.stringify(data))
-        return api.put("api/user/activate", data, {
-                headers: {
-                    "Content-Type": "application/json",
-                }
-                //headers: {"Authorization": "Bearer " + access_token},
-            },
+        return api.put("api/user/activate", data
         ).then(
             response => {
                 TokenService.updateUser(response.data);
